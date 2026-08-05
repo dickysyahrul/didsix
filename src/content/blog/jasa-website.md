@@ -81,3 +81,4 @@ publish.
 - Customize the [Tailwind CSS](https://tailwindcss.com) theme in `src/styles/global.css`
 - Add new sections to pages via the page content collections
 - Set up analytics with GTM or Umami via the site settings
+- kita test-test kaya gimana hasilnya
