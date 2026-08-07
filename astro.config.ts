@@ -106,7 +106,7 @@ export default defineConfig({
   site: siteConfig.url,
   i18n: {
     defaultLocale: "en",
-    locales: ["en"],
+    locales: ["en", "id"],
     prefixDefaultLocale: false,
   },
   prefetch: {
@@ -159,7 +159,7 @@ export default defineConfig({
       i18n: {
         defaultLocale: "en",
         locales: {
-          en: "en-US",
+          en: "en-US", id: "id-ID",
         },
       },
     }),
