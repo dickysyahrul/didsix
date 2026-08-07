@@ -93,7 +93,7 @@ function contentValidationIntegration() {
           ),
         );
 
-        const supportedLocales = ["en"];
+        const supportedLocales = ["en", "id"];
         for (const collection of entries) {
           validateDuplicates(collection, supportedLocales);
         }
