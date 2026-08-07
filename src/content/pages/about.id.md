@@ -27,7 +27,7 @@ sections:
     title: Siap membangun?
     content: Jelajahi layanan atau baca dokumentasi untuk memulai.
     ctaText: Lihat layanan
-    ctaHref: /id/services
+    ctaHref: /services
 isLegal: false
 order: 1
 ---
