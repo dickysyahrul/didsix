@@ -5,7 +5,7 @@ import { glob } from "astro/loaders";
 import { i18nConfig } from "./config/i18n.config";
 
 // Add locale codes here (e.g. ["en", "id"]) when introducing new languages.
-const localeSchema = z.enum(["en"]);
+const localeSchema = z.enum(["en", "id"]);
 
 const blog = defineCollection({
   loader: glob({
