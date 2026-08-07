@@ -1,4 +1,7 @@
 ---
+translationKey: marketing starter
+locale: id
+slug: home
 title: "Beranda"
 description: "Template pemasaran Astro yang cepat, ringan, dan mudah dipelihara — siap di-deploy ke Cloudflare Pages atau host statis lainnya."
 lang: "id"
