@@ -1,0 +1,163 @@
+---
+import MarketingLayout from "../../layouts/MarketingLayout.astro";
+import Hero from "../../components/Hero.astro";
+import FAQ from "../../components/FAQ.astro";
+import CTA from "../../components/CTA.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import {
+  FeatureTabs,
+  StackMarquee,
+  Credibility,
+  LighthouseScores,
+} from "../../components/landing/index";
+import { t } from "../../i18n/ui";
+
+const stackEntries = (await getCollection("stack"))
+  .sort(
+    (a: CollectionEntry<"stack">, b: CollectionEntry<"stack">) =>
+      a.data.order - b.data.order,
+  )
+  .map((entry: CollectionEntry<"stack">) => entry.data);
+
+const locale = (Astro.currentLocale || "id") as "id";
+const tabs = [
+  {
+    id: "performance",
+    icon: "zap",
+    heading: "Performa",
+    description:
+      "Tumpukan ringan dan statis yang mengirimkan JavaScript minimal dan merender dari jaringan edge Cloudflare.",
+    points: [
+      "Rendering statis sebagai default",
+      "Arsitektur zero-JS islands",
+      "Pengiriman edge dengan caching cerdas",
+    ],
+    visual: "$ npm run build\n✓ 25 pages built in 6.4s\n→ Deployed to the edge",
+  },
+  {
+    id: "content",
+    icon: "pen-line",
+    heading: "Konten",
+    description:
+      "Menulis dengan Markdown menggunakan alur kerja berbasis Git. Blog, dokumentasi, dan layanan adalah koleksi konten yang terjamin tipe-nya.",
+    points: [
+      "Koleksi Markdown bertipe-aman",
+      "Terverifikasi dan ditinjau di Git",
+      "Halaman blog, docs, dan layanan",
+    ],
+    visual:
+      "src/content/\n├─ blog/\n├─ docs/\n├─ services/\n└─ pages/",
+  },
+  {
+    id: "growth",
+    icon: "trending-up",
+    heading: "Pertumbuhan",
+    description:
+      "Semua yang dibutuhkan mesin pencari dan platform sosial dihasilkan untuk Anda pada setiap build.",
+    points: [
+      "Sitemap, RSS, dan robots.txt",
+      "URL kanonik dan JSON-LD",
+      "Gambar Open Graph dinamis",
+    ],
+    visual:
+      "<meta property=\"og:image\" ... />\n<link rel=\"canonical\" ... />\n<script type=\"application/ld+json\">",
+  },
+];
+---
+
+<MarketingLayout
+  title={t(locale, "nav.home")}
+  description="Template untuk situs pemasaran yang cepat."
+  locale={locale}
+  path="/"
+>
+  <Hero
+    variant="centered"
+    eyebrow="Template Pemasaran"
+    headline={t(locale, "hero.title")}
+    subheadline={t(locale, "hero.subtitle")}
+    primaryCta={{ label: t(locale, "hero.cta"), href: "/services" }}
+    secondaryCta={{ label: "Baca blog", href: "/blog" }}
+    locale={locale}
+  />
+
+  <section class="container py-16">
+    <header class="section-head">
+      <p class="section-head__eyebrow">Mengapa stack ini</p>
+      <h2 class="section-head__title">Dibangun untuk performa dan skala</h2>
+      <p class="section-head__lead">
+        Semua yang Anda butuhkan untuk mengirimkan situs pemasaran yang cepat.
+      </p>
+    </header>
+    <FeatureTabs client:visible tabs={tabs} />
+  </section>
+
+  <section class="container py-10">
+    <header class="section-head">
+      <h2 class="section-head__title">Didukung oleh stack modern</h2>
+    </header>
+    <StackMarquee items={stackEntries} />
+  </section>
+
+  <section class="container py-16">
+    <Credibility
+      stats={[
+        { value: "55+", label: "Halaman" },
+        { value: "100%", label: "Statik-pertama" },
+        { value: "A11y", label: "WCAG AA" },
+      ]}
+      logos={[
+        { name: "Astro", src: undefined },
+        { name: "Cloudflare", src: undefined },
+        { name: "Tailwind", src: undefined },
+      ]}
+    />
+  </section>
+
+  <section class="container py-16">
+    <header class="section-head">
+      <h2 class="section-head__title">Skor Lighthouse sempurna</h2>
+      <p class="section-head__lead">
+        Target skor, diverifikasi dengan Lighthouse — dioptimalkan sejak awal untuk performa, aksesibilitas, dan SEO.
+      </p>
+    </header>
+    <LighthouseScores />
+  </section>
+
+  <FAQ
+    title="Pertanyaan yang sering diajukan"
+    items={[
+      {
+        question: "Apakah ini siap multilanguage?",
+        answer:
+          "Ya. Mesin i18n sudah terpasang dan mengirimkan bahasa Inggris sebagai default; menambahkan locale lain cukup dengan memasukkan terjemahan dan konten.",
+      },
+      {
+        question: "Apakah SEO ditangani secara default?",
+        answer:
+          "Ya. Meta tag, URL kanonik, sitemap, RSS, JSON-LD, dan gambar OG dinamis semuanya sudah terhubung secara default.",
+      },
+      {
+        question: "Di mana ini dideploy?",
+        answer:
+          "Dirancang untuk Cloudflare Pages dengan opsi penyimpanan media R2, tetapi output statis berjalan di host modern mana pun.",
+      },
+      {
+        question: "Bagaimana cara mengelola konten?",
+        answer:
+          "Konten berada di koleksi Markdown (blog, docs, services, pages) yang versi dan ditinjau di Git.",
+      },
+    ]}
+  />
+
+  <CTA
+    eyebrow="Mulai"
+    title="Siap membangun situs Anda?"
+    content="Jelajahi layanan atau pelajari dokumentasi — seluruh stack siap digunakan."
+    ctaText="Jelajahi layanan"
+    ctaHref="/services"
+    secondaryText="Baca dokumentasi"
+    secondaryHref="/docs"
+    locale={locale}
+  />
+</MarketingLayout>
