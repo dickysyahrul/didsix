@@ -1,7 +1,7 @@
 ---
 translationKey: about
 locale: id
-slug: tentang
+slug: about
 title: Tentang Kami
 description: Kenali tim dan visi di balik boilerplate situs pemasaran modern.
 sections:
