@@ -121,10 +121,10 @@ export default defineConfig({
         SiteTitle: "./src/components/docs/SiteTitle.astro",
       },
       editLink: {
-        baseUrl: "https://github.com/milzamsz/astro-cloudflare-starter/edit/main",
+        baseUrl: "https://github.com/dickysyahrul/edit/main",
       },
       social: [
-        { icon: "github", label: "GitHub", href: "https://github.com/milzamsz/astro-cloudflare-starter" },
+        { icon: "github", label: "GitHub", href: "https://github.com/dickysyahrul" },
       ],
       sidebar: [
         {
