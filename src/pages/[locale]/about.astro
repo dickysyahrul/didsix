@@ -1,5 +1,6 @@
 ---
 export function getStaticPaths() {
+  // Ini wajib ada agar Astro tahu halaman ini untuk URL /id/about
   return [
     { params: { locale: "id" } }
   ];
@@ -8,4 +9,5 @@ export function getStaticPaths() {
 const { locale } = Astro.params;
 ---
 
-<h1>Halaman Bahasa Indonesia</h1>
+<h1>Halaman Tentang Kami (About)</h1>
+<p>Ini adalah uji coba halaman about untuk bahasa: {locale}</p>
