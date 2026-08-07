@@ -1,11 +1,12 @@
 import type { Locale } from "../lib/site-config";
 import en from "./en.json";
+import id from "./id.json";
 
 export type TranslationDict = Record<string, string>;
 
 // Add new locales here, e.g. `{ en, id }`, alongside their JSON file.
 export const translations: Partial<Record<Locale, TranslationDict>> = {
-  en,
+  en, id,
 };
 
 /**
