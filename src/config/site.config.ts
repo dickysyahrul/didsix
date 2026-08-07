@@ -91,27 +91,27 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   /* Core configuration — single source of truth for canonical/OG/sitemap/llms.txt.
    * Replace with your production domain when forking this template. */
-  url: "https://astro-cloudflare-starter.pages.dev",
-  name: "Astro Cloudflare",
+  url: "https://didsix.pages.dev",
+  name: "Didsix",
   description:
-    "Marketing, blog, and docs starter built with Astro and Cloudflare Pages — multilanguage-ready",
-  author: "Milzam",
-  email: "milzamsz@gmail.com",
+    "Didsix, Web Development, Wordpress Expert and advance AI Search SEO — multilanguage-ready",
+  author: "Dicky Syahrul",
+  email: "dicky@didsix.com",
   authorImage: "/images/author.jpg",
 
   /* Social links */
   socialLinks: [
     {
       platform: "github",
-      url: "https://github.com/milzamsz/astro-cloudflare-starter",
+      url: "https://github.com/dickysyahrul",
       label: "GitHub",
     },
     {
       platform: "linkedin",
-      url: "https://www.linkedin.com/in/milzamsz/",
+      url: "https://www.linkedin.com/in/dickysyahrul/",
       label: "LinkedIn",
     },
-    { platform: "email", url: "mailto:milzamsz@gmail.com", label: "Email" },
+    { platform: "email", url: "mailto:dicky@didsix.com", label: "Email" },
   ],
 
   /* Header settings */
