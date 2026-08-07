@@ -1,4 +1,5 @@
 ---
+// 1. Jalur impor disesuaikan dengan menambahkan ../
 import MarketingLayout from "../../layouts/MarketingLayout.astro";
 import Hero from "../../components/Hero.astro";
 import FAQ from "../../components/FAQ.astro";
@@ -12,6 +13,13 @@ import {
 } from "../../components/landing/index";
 import { t } from "../../i18n/ui";
 
+// 2. Mendaftarkan rute untuk bahasa Indonesia
+export function getStaticPaths() {
+  return [
+    { params: { locale: "id" } }
+  ];
+}
+
 const stackEntries = (await getCollection("stack"))
   .sort(
     (a: CollectionEntry<"stack">, b: CollectionEntry<"stack">) =>
@@ -19,18 +27,21 @@ const stackEntries = (await getCollection("stack"))
   )
   .map((entry: CollectionEntry<"stack">) => entry.data);
 
-const locale = (Astro.currentLocale || "id") as "id";
+// 3. Menangkap bahasa "id" dari URL
+const locale = Astro.params.locale as "id";
+
+// 4. Menerjemahkan konten tab ke bahasa Indonesia
 const tabs = [
   {
     id: "performance",
     icon: "zap",
     heading: "Performa",
     description:
-      "Tumpukan ringan dan statis yang mengirimkan JavaScript minimal dan merender dari jaringan edge Cloudflare.",
+      "Struktur ringan yang mengutamakan statis, mengirimkan JavaScript seminimal mungkin dan dirender dari jaringan edge Cloudflare.",
     points: [
-      "Rendering statis sebagai default",
-      "Arsitektur zero-JS islands",
-      "Pengiriman edge dengan caching cerdas",
+      "Render statis secara bawaan",
+      "Arsitektur Zero-JS islands",
+      "Pengiriman edge dengan cache pintar",
     ],
     visual: "$ npm run build\n✓ 25 pages built in 6.4s\n→ Deployed to the edge",
   },
@@ -39,11 +50,11 @@ const tabs = [
     icon: "pen-line",
     heading: "Konten",
     description:
-      "Menulis dengan Markdown menggunakan alur kerja berbasis Git. Blog, dokumentasi, dan layanan adalah koleksi konten yang terjamin tipe-nya.",
+      "Menulis dalam Markdown dengan alur kerja berbasis Git. Blog, dokumen, dan layanan dipastikan aman secara tipe data (type-safe).",
     points: [
-      "Koleksi Markdown bertipe-aman",
-      "Terverifikasi dan ditinjau di Git",
-      "Halaman blog, docs, dan layanan",
+      "Koleksi Markdown yang type-safe",
+      "Berversi dan ditinjau melalui Git",
+      "Halaman blog, dokumen, dan layanan",
     ],
     visual:
       "src/content/\n├─ blog/\n├─ docs/\n├─ services/\n└─ pages/",
@@ -53,11 +64,11 @@ const tabs = [
     icon: "trending-up",
     heading: "Pertumbuhan",
     description:
-      "Semua yang dibutuhkan mesin pencari dan platform sosial dihasilkan untuk Anda pada setiap build.",
+      "Semua yang dibutuhkan mesin pencari dan platform sosial akan dibuat secara otomatis pada setiap proses build.",
     points: [
       "Sitemap, RSS, dan robots.txt",
-      "URL kanonik dan JSON-LD",
-      "Gambar Open Graph dinamis",
+      "URL Kanonikal dan JSON-LD",
+      "Gambar Open Graph yang dinamis",
     ],
     visual:
       "<meta property=\"og:image\" ... />\n<link rel=\"canonical\" ... />\n<script type=\"application/ld+json\">",
@@ -67,26 +78,26 @@ const tabs = [
 
 <MarketingLayout
   title={t(locale, "nav.home")}
-  description="Template untuk situs pemasaran yang cepat."
+  description="Boilerplate untuk situs pemasaran yang cepat."
   locale={locale}
   path="/"
 >
   <Hero
     variant="centered"
-    eyebrow="Template Pemasaran"
+    eyebrow="Marketing Starter"
     headline={t(locale, "hero.title")}
     subheadline={t(locale, "hero.subtitle")}
-    primaryCta={{ label: t(locale, "hero.cta"), href: "/services" }}
-    secondaryCta={{ label: "Baca blog", href: "/blog" }}
+    primaryCta={{ label: t(locale, "hero.cta"), href: "/id/services" }}
+    secondaryCta={{ label: "Baca Blog", href: "/id/blog" }}
     locale={locale}
   />
 
   <section class="container py-16">
     <header class="section-head">
-      <p class="section-head__eyebrow">Mengapa stack ini</p>
-      <h2 class="section-head__title">Dibangun untuk performa dan skala</h2>
+      <p class="section-head__eyebrow">Mengapa memilih struktur ini</p>
+      <h2 class="section-head__title">Dibangun untuk performa dan skala besar</h2>
       <p class="section-head__lead">
-        Semua yang Anda butuhkan untuk mengirimkan situs pemasaran yang cepat.
+        Semua yang Anda butuhkan untuk meluncurkan situs pemasaran yang cepat.
       </p>
     </header>
     <FeatureTabs client:visible tabs={tabs} />
@@ -94,7 +105,7 @@ const tabs = [
 
   <section class="container py-10">
     <header class="section-head">
-      <h2 class="section-head__title">Didukung oleh stack modern</h2>
+      <h2 class="section-head__title">Didukung oleh teknologi modern</h2>
     </header>
     <StackMarquee items={stackEntries} />
   </section>
@@ -103,7 +114,7 @@ const tabs = [
     <Credibility
       stats={[
         { value: "55+", label: "Halaman" },
-        { value: "100%", label: "Statik-pertama" },
+        { value: "100%", label: "Statis Bawaan" },
         { value: "A11y", label: "WCAG AA" },
       ]}
       logos={[
@@ -116,9 +127,9 @@ const tabs = [
 
   <section class="container py-16">
     <header class="section-head">
-      <h2 class="section-head__title">Skor Lighthouse sempurna</h2>
+      <h2 class="section-head__title">Skor Lighthouse Sempurna</h2>
       <p class="section-head__lead">
-        Target skor, diverifikasi dengan Lighthouse — dioptimalkan sejak awal untuk performa, aksesibilitas, dan SEO.
+        Skor target, diverifikasi dengan Lighthouse — dioptimalkan langsung dari awal untuk performa, aksesibilitas, dan SEO.
       </p>
     </header>
     <LighthouseScores />
@@ -128,36 +139,36 @@ const tabs = [
     title="Pertanyaan yang sering diajukan"
     items={[
       {
-        question: "Apakah ini siap multilanguage?",
+        question: "Apakah ini siap untuk multi-bahasa?",
         answer:
-          "Ya. Mesin i18n sudah terpasang dan mengirimkan bahasa Inggris sebagai default; menambahkan locale lain cukup dengan memasukkan terjemahan dan konten.",
+          "Ya. Mesin i18n sudah terhubung dan menggunakan bahasa Inggris sebagai bawaan, sehingga menambahkan bahasa baru hanya perlu memasukkan terjemahan dan konten.",
       },
       {
-        question: "Apakah SEO ditangani secara default?",
+        question: "Apakah SEO sudah diatur secara otomatis?",
         answer:
-          "Ya. Meta tag, URL kanonik, sitemap, RSS, JSON-LD, dan gambar OG dinamis semuanya sudah terhubung secara default.",
+          "Tag meta, URL kanonikal, sitemap, RSS, JSON-LD, dan gambar OG dinamis semuanya sudah terhubung secara default.",
       },
       {
-        question: "Di mana ini dideploy?",
+        question: "Di mana situs ini di-deploy?",
         answer:
-          "Dirancang untuk Cloudflare Pages dengan opsi penyimpanan media R2, tetapi output statis berjalan di host modern mana pun.",
+          "Ini dirancang untuk Cloudflare Pages dengan penyimpanan media R2 opsional, tetapi output statisnya bisa berjalan di hosting modern mana pun.",
       },
       {
         question: "Bagaimana cara mengelola konten?",
         answer:
-          "Konten berada di koleksi Markdown (blog, docs, services, pages) yang versi dan ditinjau di Git.",
+          "Konten dikelola dalam koleksi Markdown (blog, docs, services, pages) yang berversi dan dapat ditinjau melalui Git.",
       },
     ]}
   />
 
   <CTA
-    eyebrow="Mulai"
+    eyebrow="Mulai sekarang"
     title="Siap membangun situs Anda?"
-    content="Jelajahi layanan atau pelajari dokumentasi — seluruh stack siap digunakan."
+    content="Jelajahi layanan kami atau pelajari dokumentasinya — semuanya siap digunakan."
     ctaText="Jelajahi layanan"
-    ctaHref="/services"
+    ctaHref="/id/services"
     secondaryText="Baca dokumentasi"
-    secondaryHref="/docs"
+    secondaryHref="/id/docs"
     locale={locale}
   />
 </MarketingLayout>
