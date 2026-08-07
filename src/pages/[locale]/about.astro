@@ -1,0 +1,11 @@
+---
+export function getStaticPaths() {
+  return [
+    { params: { locale: "id" } }
+  ];
+}
+
+const { locale } = Astro.params;
+---
+
+<h1>Halaman Bahasa Indonesia</h1>
