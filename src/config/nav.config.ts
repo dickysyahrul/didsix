@@ -42,11 +42,11 @@ export const footerNav = {
   /** Social media and contact links */
   social: [
     {
-      href: "https://github.com/milzamsz/astro-cloudflare-starter",
+      href: "https://github.com/dickysyahrul",
       labelKey: "footer.github",
     },
     {
-      href: "https://www.linkedin.com/in/milzamsz/",
+      href: "https://www.linkedin.com/in/dickysyahrul/",
       labelKey: "footer.linkedin",
     },
   ] as const,
