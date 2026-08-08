@@ -1,4 +1,5 @@
 ---
+translationKey: contact
 locale: id
 slug: contact
 title: Kontak
@@ -18,5 +19,4 @@ sections:
         description: "@dickysyahrul"
 isLegal: false
 order: 4
-translationKey: contact
 ---
