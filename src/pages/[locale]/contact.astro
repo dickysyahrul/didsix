@@ -29,9 +29,9 @@ const lng = settings?.mapLongitude || "106.8456";
 const hasMap = Boolean(lat && lng);
 const contactEmail = settings?.orgEmail || siteConfig.email;
 
-// The interactive Google Maps embed is loaded on click (facade pattern) so its
-// third-party JS never weighs on initial load (no TBT).
-const mapEmbed = `https://maps.google.com/maps?q=${lat}%2C${lng}&z=15&hl=${locale}&output=embed`;
+// Embed Google Maps interaktif dimuat saat diklik (pola facade) sehingga skrip
+// pihak ketiga tidak membebani initial load (mengurangi TBT).
+const mapEmbed = `https://maps.google.com/maps?q=${lat}%2C${lng}&z=15&hl=en&output=embed`;
 const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}`;
 
 interface PageSection {
@@ -63,14 +63,14 @@ const methods = (featuresSection?.items || []).map((item) => ({
   title={page?.data.title || t(locale, "nav.contact")}
   description={page?.data.description}
   locale={locale}
-  path={`/${locale}/contact`}
+  path={"/contact"}
 >
   {
     heroSection && (
       <Hero
         variant="centered"
         size="md"
-        eyebrow={t(locale, "nav.contact") || "Kontak"}
+        eyebrow="Kontak"
         headline={heroSection.title || page?.data.title || ""}
         subheadline={heroSection.content}
         locale={locale}
@@ -81,13 +81,13 @@ const methods = (featuresSection?.items || []).map((item) => ({
   <section class="contact container">
     <div class="contact__grid">
       <div class="contact__intro">
-        <h2>Kirim pesan</h2>
+        <h2>Kirim pesan kepada kami</h2>
         <p>
-          Punya pertanyaan atau ingin bekerja sama? Kirim email langsung kepada
-          kami dan kami akan membalas dalam satu hari kerja.
+          Punya pertanyaan atau ingin bekerja sama? Kirim email langsung kepada kami dan
+          kami akan membalas dalam satu hari kerja.
         </p>
         <Button href={`mailto:${contactEmail}`} variant="primary">
-          Email ke {contactEmail}
+          Kirim email ke {contactEmail}
         </Button>
 
         <ul class="contact__methods">
@@ -147,8 +147,8 @@ const methods = (featuresSection?.items || []).map((item) => ({
 </BaseLayout>
 
 <script is:inline>
-  // Swap the static facade for the real Google Maps iframe only on first click,
-  // keeping third-party JS off the critical path.
+  // Ganti facade statis dengan iframe Google Maps nyata hanya pada klik pertama,
+  // menjaga skrip pihak ketiga tetap berada di luar critical path.
   document.querySelectorAll("[data-map-embed]").forEach((btn) => {
     btn.addEventListener(
       "click",
