@@ -7,12 +7,13 @@ import { siteConfig } from "../config/site.config";
 import Hero from "../components/Hero.astro";
 import { Button, Icon } from "../components/ui/index";
 
-const locale = (Astro.currentLocale || "en") as "en";
+const locale = (Astro.currentLocale || "en") as string;
 
 const allPages: CollectionEntry<"pages">[] = await getCollection("pages");
-const page = allPages.find(
-  (p) => p.data.slug === "contact" && p.data.locale === locale,
-);
+// Try to find a page matching the current locale, but fall back to any 'contact' page
+const page =
+  allPages.find((p) => p.data.slug === "contact" && p.data.locale === locale) ||
+  allPages.find((p) => p.data.slug === "contact");
 
 const allSettings = await getCollection("settings");
 const settings = allSettings[0]?.data as
@@ -52,11 +53,32 @@ const iconByTitle: Record<string, string> = {
   Phone: "lucide:phone",
 };
 
-const methods = (featuresSection?.items || []).map((item) => ({
-  title: item.title || "",
-  description: item.description || "",
-  icon: iconByTitle[item.title || ""] || "lucide:circle",
-}));
+// Accept localized titles in the content (e.g. "Kantor", "Sosial") by normalizing
+function canonicalTitle(raw?: string) {
+  if (!raw) return "";
+  const key = raw.trim().toLowerCase();
+  const map: Record<string, string> = {
+    email: "Email",
+    e: "Email",
+    kantor: "Office",
+    office: "Office",
+    sosial: "Social",
+    social: "Social",
+    telepon: "Phone",
+    phone: "Phone",
+  };
+  return map[key] || raw;
+}
+
+const methods = (featuresSection?.items || []).map((item) => {
+  const title = item.title || "";
+  const canon = canonicalTitle(title);
+  return {
+    title,
+    description: item.description || "",
+    icon: iconByTitle[canon] || "lucide:circle",
+  };
+});
 ---
 
 <BaseLayout
