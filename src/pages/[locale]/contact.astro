@@ -7,7 +7,16 @@ import { siteConfig } from "../config/site.config";
 import Hero from "../components/Hero.astro";
 import { Button, Icon } from "../components/ui/index";
 
-const locale = (Astro.currentLocale || "id") as "id";
+// 2. Wajib menambahkan getStaticPaths untuk rute dinamis Astro
+export function getStaticPaths() {
+  return [
+    { params: { locale: "id" } }
+  ];
+}
+
+// 3. Mengambil locale "id" dari URL, bukan lagi mengatur manual ke "en"
+const { locale } = Astro.params;
+const currentLocale = locale as "id";
 
 const allPages: CollectionEntry<"pages">[] = await getCollection("pages");
 const page = allPages.find(
