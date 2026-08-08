@@ -29,9 +29,9 @@ const lng = settings?.mapLongitude || "106.8456";
 const hasMap = Boolean(lat && lng);
 const contactEmail = settings?.orgEmail || siteConfig.email;
 
-// Embed Google Maps interaktif dimuat saat diklik (pola facade) sehingga skrip
-// pihak ketiga tidak membebani initial load (mengurangi TBT).
-const mapEmbed = `https://maps.google.com/maps?q=${lat}%2C${lng}&z=15&hl=en&output=embed`;
+// The interactive Google Maps embed is loaded on click (facade pattern) so its
+// third-party JS never weighs on initial load (no TBT).
+const mapEmbed = `https://maps.google.com/maps?q=${lat}%2C${lng}&z=15&hl=id&output=embed`;
 const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}`;
 
 interface PageSection {
@@ -47,9 +47,9 @@ const featuresSection = sections.find((s) => s.type === "features");
 
 const iconByTitle: Record<string, string> = {
   Email: "lucide:mail",
-  Office: "lucide:map-pin",
-  Social: "lucide:at-sign",
-  Phone: "lucide:phone",
+  Kantor: "lucide:map-pin",
+  Sosial: "lucide:at-sign",
+  Telepon: "lucide:phone",
 };
 
 const methods = (featuresSection?.items || []).map((item) => ({
@@ -83,11 +83,10 @@ const methods = (featuresSection?.items || []).map((item) => ({
       <div class="contact__intro">
         <h2>Kirim pesan kepada kami</h2>
         <p>
-          Punya pertanyaan atau ingin bekerja sama? Kirim email langsung kepada kami dan
-          kami akan membalas dalam satu hari kerja.
+          Punya pertanyaan atau ingin bekerja sama? Kirim email langsung kepada kami dan kami akan membalasnya dalam satu hari kerja.
         </p>
         <Button href={`mailto:${contactEmail}`} variant="primary">
-          Kirim email ke {contactEmail}
+          Email {contactEmail}
         </Button>
 
         <ul class="contact__methods">
@@ -137,7 +136,7 @@ const methods = (featuresSection?.items || []).map((item) => ({
           ) : (
             <div class="contact__placeholder">
               <Icon name="lucide:map-pin" />
-              <p>Tambahkan koordinat peta di pengaturan untuk menampilkan lokasi di sini.</p>
+              <p>Tambahkan koordinat peta di pengaturan untuk menampilkan peta lokasi di sini.</p>
             </div>
           )
         }
@@ -147,8 +146,8 @@ const methods = (featuresSection?.items || []).map((item) => ({
 </BaseLayout>
 
 <script is:inline>
-  // Ganti facade statis dengan iframe Google Maps nyata hanya pada klik pertama,
-  // menjaga skrip pihak ketiga tetap berada di luar critical path.
+  // Swap the static facade for the real Google Maps iframe only on first click,
+  // keeping third-party JS off the critical path.
   document.querySelectorAll("[data-map-embed]").forEach((btn) => {
     btn.addEventListener(
       "click",
