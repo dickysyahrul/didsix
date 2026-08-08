@@ -7,11 +7,27 @@ import { siteConfig } from "../config/site.config";
 import Hero from "../components/Hero.astro";
 import { Button, Icon } from "../components/ui/index";
 
-const locale = (Astro.currentLocale || "id") as "id";
+// Build static paths for every locale that has a `contact` page in the content collection.
+export async function getStaticPaths() {
+  const allPages: CollectionEntry<"pages">[] = await getCollection("pages");
+  const locales = Array.from(
+    new Set(
+      allPages
+        .filter((p) => p.data.slug === "contact" && p.data.locale)
+        .map((p) => p.data.locale),
+    ),
+  );
+
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+// Read the locale from the route params (required in dynamic [locale] routes)
+const { locale } = Astro.params;
+const currentLocale = (locale || "id") as string;
 
 const allPages: CollectionEntry<"pages">[] = await getCollection("pages");
 const page = allPages.find(
-  (p) => p.data.slug === "contact" && p.data.locale === locale,
+  (p) => p.data.slug === "contact" && p.data.locale === currentLocale,
 );
 
 const allSettings = await getCollection("settings");
@@ -60,20 +76,20 @@ const methods = (featuresSection?.items || []).map((item) => ({
 ---
 
 <BaseLayout
-  title={page?.data.title || t(locale, "nav.contact")}
+  title={page?.data.title || t(currentLocale, "nav.contact")}
   description={page?.data.description}
-  locale={locale}
-  path={"/contact"}
+  locale={currentLocale}
+  path={`/${currentLocale}/contact`}
 >
   {
     heroSection && (
       <Hero
         variant="centered"
         size="md"
-        eyebrow="Contact"
+        eyebrow={t(currentLocale, "nav.contact")}
         headline={heroSection.title || page?.data.title || ""}
         subheadline={heroSection.content}
-        locale={locale}
+        locale={currentLocale}
       />
     )
   }
@@ -81,13 +97,15 @@ const methods = (featuresSection?.items || []).map((item) => ({
   <section class="contact container">
     <div class="contact__grid">
       <div class="contact__intro">
-        <h2>Send us a message</h2>
+        <h2>{t(currentLocale, "contact.send_message") ?? "Send us a message"}</h2>
         <p>
-          Have a question or want to work together? Email us directly and we'll
-          get back to you within one business day.
+          {t(
+            currentLocale,
+            "contact.intro",
+          ) ?? "Have a question or want to work together? Email us directly and we'll get back to you within one business day."}
         </p>
         <Button href={`mailto:${contactEmail}`} variant="primary">
-          Email {contactEmail}
+          {t(currentLocale, "contact.email_us") ?? `Email ${contactEmail}`}
         </Button>
 
         <ul class="contact__methods">
