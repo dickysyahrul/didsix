@@ -1,20 +1,20 @@
 ---
-locale: en
+locale: id
 slug: contact
-title: Contact
-description: Get in touch with our team for questions, collaboration, and more information.
+title: Kontak
+description: Hubungi tim kami untuk pertanyaan, kolaborasi, dan informasi lebih lanjut.
 sections:
   - type: hero
-    title: Contact Us
-    content: We'd love to hear from you.
+    title: Hubungi Kami
+    content: Kami sangat menantikan pesan dari Anda.
   - type: features
-    title: Ways to Reach Us
+    title: Cara Menghubungi Kami
     items:
       - title: Email
         description: dicky@didsix.com
-      - title: Office
+      - title: Kantor
         description: Banten, Indonesia
-      - title: Social
+      - title: Sosial
         description: "@dickysyahrul"
 isLegal: false
 order: 4
