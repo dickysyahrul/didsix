@@ -6,7 +6,7 @@ description: Hubungi tim kami untuk pertanyaan, kolaborasi, dan informasi lebih 
 sections:
   - type: hero
     title: Hubungi Kami
-    content: Kami ingin mendengar dari Anda.
+    content: Kami sangat menantikan pesan dari Anda.
   - type: features
     title: Cara Menghubungi Kami
     items:
